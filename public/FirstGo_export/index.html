@@ -2,7 +2,42 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>FirstGo &middot; Made with Sencha Animator</title><style type="text/css">
+<title>FirstGo &middot; Made with Sencha Animator</title> <script type="text/javascript">
+	
+	function restart() {
+		
+		var animatedEls = document.getElementsByClassName('AN-Object');
+		
+		for (var i = animatedEls.length - 1; i >= 0; i--){
+			var name = animatedEls[i].style.WebkitAnimationName;
+			
+			if (name != "") {
+				
+				animatedEls[i].style.WebkitAnimationName = "AN" + name;
+				//animatedEls[i].style.WebkitAnimationName = name;
+				//console.log(animatedEls[i].style.WebkitAnimationName );
+
+			}
+		};
+		
+		setTimeout(function(){
+				
+				for (var i = animatedEls.length - 1; i >= 0; i--){
+					var name = animatedEls[i].style.WebkitAnimationName;
+			
+					if (name != "") {
+			
+						animatedEls[i].style.WebkitAnimationName = name.replace(/^AN/, "")
+						//console.log(animatedEls[i].style.WebkitAnimationName );
+			
+					}
+				};
+				
+			},0);
+			
+	}
+	
+ </script><style type="text/css">
 #AN-sObj-stage {
  position: relative;
  overflow:hidden;
@@ -14,7 +49,7 @@
  body,#AN-sObj-stage {margin:0; padding:0;}
 #AN-sObj-stage{ width: 480px;
 height: 320px;
-border-color: black;
+border-color: #C0C0C0;
 background-color: FFFFFF;
  }
 #AN-sObj-1{ width: 100px;
@@ -32,7 +67,7 @@ left: 10px;
 left: 40px;
 font-family: "Lucida Grande", Lucida, Verdana, sans-serif;
 overflow: hidden;
--webkit-animation-iteration-count: 1;
+-webkit-animation-iteration-count: infinite;
  }
 #AN-sObj-3{ width: 100px;
 height: 100px;
@@ -71,6 +106,18 @@ text-shadow: ccc 40px 2px 8px;
 height: 192px;
 top: 319px;
 left: 114px;
+ }
+#AN-sObj-8{ top: 0px;
+left: 0px;
+width: 100px;
+height: 100px;
+ }
+#AN-sObj-9{ width: 480px;
+height: 320px;
+top: 0px;
+left: 0px;
+-webkit-animation-iteration-count: infinite;
+-webkit-animation-direction: alternate;
  }
 
 @-webkit-keyframes AN-ani-0 {
@@ -155,9 +202,20 @@ opacity: 1;
 opacity: 0;
  }
 }
+
+@-webkit-keyframes AN-ani-3 {
+ 0% {
+	-webkit-transform: scale3d(1, 1, 1);
+
+ }
+ 100% {
+	-webkit-transform: scale3d(1.5, 1.5, 1);
+
+ }
+}
 </style>
 
 </head>
 <body>
-<div id="AN-sObj-stage"><div id="cdsmtitle" class="AN-Object" style="opacity: 0; -webkit-animation-name: AN-ani-0; -webkit-animation-duration: 3.27s; "><span id="AN-sObj-val-2">CDSM Interactive Solutions</span></div><div id="AN-sObj-6" class="AN-Object" style="-webkit-transform: translate3d(-880px, 0px, 0px) scale3d(1, 1, 1); text-shadow: rgb(221, 221, 221) -30px 2px 8px; -webkit-animation-name: AN-ani-1; -webkit-animation-duration: 7.29s; "><span id="AN-sObj-val-6">HTML5</span></div><div class="AN-Object" id="AN-sObj-7" style="-webkit-transform: translate3d(0px, -191px, 0px) scale3d(1.5, 1.5, 1); opacity: 0; -webkit-animation-name: AN-ani-2; -webkit-animation-duration: 11.43s; "><div id="AN-sObj-val-7"><img src="assets/funnyCat.jpeg"></div></div></div></body>
+<div id="AN-sObj-stage"><a id="AN-sObj-link-2" class="AN-Object-Link" href="javascript:restart()" target="_self"> <div id="cdsmtitle" class="AN-Object" style="opacity: 0; -webkit-animation-name: AN-ani-0; -webkit-animation-duration: 3.27s; "><span id="AN-sObj-val-2">CDSM Interactive Solutions</span></div></a><div id="AN-sObj-6" class="AN-Object" style="-webkit-transform: translate3d(-880px, 0px, 0px) scale3d(1, 1, 1); text-shadow: rgb(221, 221, 221) -30px 2px 8px; -webkit-animation-name: AN-ani-1; -webkit-animation-duration: 7.29s; "><span id="AN-sObj-val-6">HTML5</span></div><div class="AN-Object" id="AN-sObj-7" style="-webkit-transform: translate3d(0px, -191px, 0px) scale3d(1.5, 1.5, 1); opacity: 0; -webkit-animation-name: AN-ani-2; -webkit-animation-duration: 11.43s; "><div id="AN-sObj-val-7"><img src="assets/funnyCat.jpeg"></div></div><a id="AN-sObj-link-9" class="AN-Object-Link" href="javascript:restart()" target="_self"> <div class="AN-Object" id="AN-sObj-9" style="-webkit-transform: scale3d(1.5, 1.5, 1); -webkit-animation-name: AN-ani-3; -webkit-animation-duration: 3.12s; "><div id="AN-sObj-val-9"><img src="assets/vignette.png"></div></div></a></div></body>
 </html>
