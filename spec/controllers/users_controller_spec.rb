@@ -72,6 +72,18 @@ describe UsersController do
         response.should render_template('new')
       end
       
+      it "should blank the password fields" do
+        lambda do
+          post :create, :user => @attr.merge( :name => "The Dude",
+                                            :email                  => "abides@thebeach.net",
+                                            :password               => "finbar",
+                                            :password_confirmation  => "mismatch")
+          response.should render_template('new')
+          response.should have_selector('input#user_password', :value => '')
+          response.should have_selector('input#user_password_confirmation', :value => '')
+        end.should_not change(User, :count)
+      end
+  
     end
       
     describe "success" do
