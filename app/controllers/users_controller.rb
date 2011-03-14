@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
-  before_filter :authenticate,  :only => [:edit, :update, :index]
-  before_filter :correct_user,  :only => [:edit, :update]
-  before_filter :admin_user,    :only => :destroy
+  before_filter :authenticate,      :only => [:edit, :update, :index]
+  before_filter :correct_user,      :only => [:edit, :update]
+  before_filter :admin_user,        :only => :destroy
+  before_filter :no_self_delete,    :only => :destroy
+  before_filter :block_signed_user, :only => [:new, :create]
   
   def new
     @user = User.new
@@ -66,5 +68,16 @@ class UsersController < ApplicationController
     
     def admin_user
       redirect_to(root_path) unless current_user.admin?
+    end
+    
+    def no_self_delete
+      if current_user?(User.find(params[:id]))
+        flash[:error] = "You can't delete yourself"
+        redirect_to(users_path)
+      end
+    end
+    
+    def block_signed_user
+      redirect_to(root_path) if signed_in?
     end
 end
