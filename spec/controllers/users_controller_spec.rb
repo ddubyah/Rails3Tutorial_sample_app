@@ -65,32 +65,40 @@ describe UsersController do
   
   describe "GET 'show'" do
     before(:each) do
-      @testuser = Factory(:user) # create a user object to work with
+      @user = Factory(:user) # create a user object to work with
     end
     
     it "should be successful" do
-      get :show, :id => @testuser
+      get :show, :id => @user
       response.should be_success
     end
     
     it "should show the right user" do
-      get :show, :id => @testuser
-      assigns(:user).should == @testuser
+      get :show, :id => @user
+      assigns(:user).should == @user
     end
     
     it "should have the right title" do
-      get :show, :id => @testuser
-      response.should have_selector("title", :content => @testuser.name)
+      get :show, :id => @user
+      response.should have_selector("title", :content => @user.name)
     end
     
     it "should include the user's name" do
-      get :show, :id => @testuser
-      response.should have_selector("h1", :content => @testuser.name)
+      get :show, :id => @user
+      response.should have_selector("h1", :content => @user.name)
     end
     
     it "should have a profile picture" do
-      get :show, :id => @testuser
+      get :show, :id => @user
       response.should have_selector("h1>img", :class  => "gravatar")
+    end
+    
+    it "should show the user's microposts" do
+      mp1 = Factory(:micropost, :user => @user, :content => "Foo bar")
+      mp2 = Factory(:micropost, :user => @user, :content => "baz quux")
+      get :show, :id => @user
+      response.should have_selector("span.content", :content => mp1.content)
+      response.should have_selector("span.content", :content => mp2.content)
     end
   end
   
