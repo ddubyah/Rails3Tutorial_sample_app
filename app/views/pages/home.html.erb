@@ -1,3 +1,7 @@
+<% content_for :javascript_includes do %>
+	<%= javascript_include_tag "jquery.jqEasyCharCounter.min.js" %>
+  <%= javascript_include_tag "home_page_scripts.js" %>
+<% end %>
 <% if signed_in? %>
   <table class="front" summary="For signed-in users">
     <tr>
