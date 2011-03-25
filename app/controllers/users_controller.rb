@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
-  before_filter :authenticate,      :only => [:edit, :update, :index]
-  before_filter :correct_user,      :only => [:edit, :update]
-  before_filter :admin_user,        :only => :destroy
-  before_filter :no_self_delete,    :only => :destroy
-  before_filter :block_signed_user, :only => [:new, :create]
+  before_filter :authenticate,      :except => [:show, :new, :create]
+  before_filter :correct_user,      :only   => [:edit, :update]
+  before_filter :admin_user,        :only   => :destroy
+  before_filter :no_self_delete,    :only   => :destroy
+  before_filter :block_signed_user, :only   => [:new, :create]
   
   def new
     @user = User.new
@@ -54,6 +54,20 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     flash[:success] = "User destroyed."
     redirect_to users_path
+  end
+  
+  def following
+    @title = "Following"
+    @user = User.find(params[:id])
+    @users = @user.following.paginate(:page => params[:page])
+    render 'show_follow'
+  end
+  
+  def followers
+    @title = 'Followers'
+    @user = User.find(params[:id])
+    @users = @user.followers.paginate(:page => params[:page])
+    render 'show_follow'
   end
   
   private
